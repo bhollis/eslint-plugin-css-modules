@@ -12,7 +12,7 @@
     "watch": "babel lib -d build --watch",
     "build": "rm -rf build && babel lib -d build",
     "lint": "eslint lib test",
-    "test": "mocha 'test/**/*.test.js' --compilers js:@babel/register",
+    "test": "npm run build && rm -rf test-out && babel test -d test-out && node --test test-out",
     "my-pre-publish": "npm run test && npm run build",
     "my-publish": "npm run my-pre-publish && yarn publish"
   },

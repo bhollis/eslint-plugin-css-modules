@@ -2,8 +2,9 @@
 
 import { expect } from 'chai';
 import gonzales from 'gonzales-pe';
+import { describe, it } from 'node:test';
 
-import { eliminateGlobals } from '../../../lib/core/traversalUtils.js';
+import { eliminateGlobals } from '../../../build/core/traversalUtils.js';
 
 describe('eliminateGlobals()', function () {
   describe('resolving :global pseudo class', function () {

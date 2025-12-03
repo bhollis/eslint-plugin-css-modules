@@ -1,13 +1,12 @@
-import path from 'node:path';
 import { RuleTester as EslintRuleTester } from 'eslint';
-import { test } from 'mocha';
+import { describe, it } from 'node:test';
 
 /* pattern taken from eslint-plugin-import */
 export function addFilenameOption (testCase) {
   return {
     ...testCase,
     // TODO:  Find a way to remove this.
-    filename: path.resolve(__dirname, './files/foo.js'),
+    filename: new URL('./files/foo.js', import.meta.url).pathname,
   };
 }
 
@@ -15,16 +14,10 @@ export function addFilenameOption (testCase) {
  * Customizing ESLint rule tester to be run by Mocha.
  * @see https://eslint.org/docs/latest/integrate/nodejs-api#customizing-ruletester
  */
-EslintRuleTester.describe = (text, method) => {
-  EslintRuleTester.it.title = text;
-  return method.call(this);
-};
+EslintRuleTester.describe = describe;
+EslintRuleTester.it = it;
 
-EslintRuleTester.it = (text, method) => {
-  test(EslintRuleTester.it.title + ': ' + text, method);
-};
-
-export const RuleTester = () => {
+export function RuleTester () {
   return new EslintRuleTester({
     parserOptions: {
       sourceType: 'module',
