@@ -16,7 +16,7 @@ describe('no-unused-class', function () {
         name: "absolute import eg: 'foo/bar.scss'",
         code: `
           import s from 'test/files/noUndefClass1.scss';
-  
+
           export default Foo = () => (
             <div className={s.container}></div>
           );
@@ -26,7 +26,7 @@ describe('no-unused-class', function () {
         name: "dot notation and square brackets eg: s.foo and s['bar']",
         code: `
           import s from './noUnusedClass1.scss';
-  
+
           export default Foo = () => (
             <div className={s.foo}>
               <div className={s['bar']}>
@@ -40,7 +40,7 @@ describe('no-unused-class', function () {
         name: 'ignore global scope selector',
         code: `
           import s from './noUnusedClass2.scss';
-  
+
           export default Foo = () => (
             <div className={s.foo}>
               <span className="bar"></span>
@@ -52,7 +52,7 @@ describe('no-unused-class', function () {
         name: 'ignore props exported by ICSS :export pseudo-selector https://github.com/css-modules/icss#export',
         code: `
           import s from './export1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}></div>
           );
@@ -62,7 +62,7 @@ describe('no-unused-class', function () {
         name: 'check if composes classes are ignored',
         code: `
           import s from './composes1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}>
               <span className={s.baz}></span>
@@ -74,7 +74,7 @@ describe('no-unused-class', function () {
         name: 'composes with multiple classes',
         code: `
           import s from './composesMultiple1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}>
               <span className={s.baz}></span>
@@ -86,7 +86,7 @@ describe('no-unused-class', function () {
         name: 'check if @extend classes are ignored',
         code: `
           import s from './extend1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}>
               <span className={s.baz}></span>
@@ -98,7 +98,7 @@ describe('no-unused-class', function () {
         name: 'check if classes are ignored if they only exist for nesting parent selectors (`&`)',
         code: `
           import s from './parentSelector7.scss';
-  
+
           export default Foo = () => (
             <div>
               <span className={s.foo_bar}></span>
@@ -111,7 +111,7 @@ describe('no-unused-class', function () {
         name: 'check if camelCase=true classes work as expected',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s.fooBar}>
               <div className={s.barFoo}></div>
@@ -126,7 +126,7 @@ describe('no-unused-class', function () {
         name: 'Add camelCase option',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s['foo-bar']}>
               <div className={s['bar-foo']}></div>
@@ -141,7 +141,7 @@ describe('no-unused-class', function () {
         name: 'check if camelCase=dashes classes work as expected',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s.fooBar}>
               <div className={s.barFoo}></div>
@@ -156,7 +156,7 @@ describe('no-unused-class', function () {
         name: 'Add support for all variants of the camelCase options',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s['foo-bar']}>
               <div className={s['bar-foo']}></div>
@@ -171,7 +171,7 @@ describe('no-unused-class', function () {
         name: 'check if camelCase=only classes work as expected',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s.fooBar}>
               <div className={s.barFoo}></div>
@@ -186,7 +186,7 @@ describe('no-unused-class', function () {
         name: 'check if camelCase=dashes-only classes work as expected',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s.fooBar}>
               <div className={s.barFoo}></div>
@@ -197,13 +197,23 @@ describe('no-unused-class', function () {
         `,
         options: [{ camelCase: 'dashes-only' }],
       },
+      {
+        name: 'check if import * as s from ... syntax works',
+        code: `
+          import * as s from 'test/files/noUndefClass1.scss';
+
+          export default Foo = () => (
+            <div className={s.container}></div>
+          );
+        `,
+      },
     ].map((testCase) => addFilenameOption(testCase)),
     invalid: [
       {
         name: 'Unused class error',
         code: `
           import s from './noUnusedClass1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}></div>
           );
@@ -214,7 +224,7 @@ describe('no-unused-class', function () {
         name: 'ignored global scope selector class',
         code: `
           import s from './noUnusedClass2.scss';
-  
+
           export default Foo = () => (
             <div>
             </div>
@@ -226,7 +236,7 @@ describe('no-unused-class', function () {
         name: 'check less support',
         code: `
           import s from './noUnusedClass1.less';
-  
+
           export default Foo = () => (
             <div>
             </div>
@@ -238,7 +248,7 @@ describe('no-unused-class', function () {
         name: 'check composes support',
         code: `
           import s from './composes1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}></div>
           );
@@ -249,7 +259,7 @@ describe('no-unused-class', function () {
         name: 'check multiple composes support',
         code: `
           import s from './composesMultiple1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}></div>
           );
@@ -260,7 +270,7 @@ describe('no-unused-class', function () {
         name: 'check @extend support',
         code: `
           import s from './extend1.scss';
-  
+
           export default Foo = () => (
             <div className={s.bar}></div>
           );
@@ -271,7 +281,7 @@ describe('no-unused-class', function () {
         name: 'using parent selector (`&`)',
         code: `
           import s from './parentSelector4.scss';
-  
+
           export default Foo = () => (
             <div className={s.foo}>
               <div className={s.foo_baz}></div>
@@ -284,7 +294,7 @@ describe('no-unused-class', function () {
         name: 'snake_case',
         code: `
           import s from './parentSelector8.scss';
-  
+
           export default Foo = () => (
             <div className={s.foo} />
           );
@@ -295,7 +305,7 @@ describe('no-unused-class', function () {
         name: 'should detect if camel case properties are NOT used when camelCase=true',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={ s.fooBar } />
           );
@@ -309,7 +319,7 @@ describe('no-unused-class', function () {
         name: 'should detect if camel case properties are NOT used when camelCase=dashes',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={ s.fooBar }>
               <div className={s.snakeCased}></div>
@@ -325,7 +335,7 @@ describe('no-unused-class', function () {
         name: 'should detect if camel case properties are NOT used when camelCase=only',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s['foo-bar']}>
               <div className={s.barFoo}></div>
@@ -343,7 +353,7 @@ describe('no-unused-class', function () {
         name: 'should detect if camel case properties are NOT used when camelCase=dashes-only',
         code: `
           import s from './noUnusedClass3.scss';
-  
+
           export default Foo = () => (
             <div className={s['foo-bar']}>
               <div className={s.barFoo}></div>
@@ -356,6 +366,17 @@ describe('no-unused-class', function () {
         errors: [
           'Unused classes found in noUnusedClass3.scss: foo-bar, alreadyCamelCased, snake_cased',
         ],
+      },
+      {
+        name: 'Should detect unused class if using "import * as s from ..." syntax',
+        code: `
+          import * as s from './noUnusedClass1.scss';
+
+          export default Foo = () => (
+            <div className={s.bar}></div>
+          );
+        `,
+        errors: ['Unused classes found in noUnusedClass1.scss: foo, bold'],
       },
     ].map((testCase) => addFilenameOption(testCase)),
   });

@@ -1,8 +1,8 @@
-# eslint-plugin-css-modules
-
-[![Build Status](https://travis-ci.org/atfzl/eslint-plugin-css-modules.svg?branch=master)](https://travis-ci.org/atfzl/eslint-plugin-css-modules)
+# @bhollis/eslint-plugin-css-modules
 
 This plugin intends to help you in tracking down problems when you are using css-modules. It tells if you are using a non-existent css/scss/less class in js or if you forgot to use some classes which you declared in css/scss/less.
+
+This is a forked version of https://github.com/atfzl/eslint-plugin-css-modules with fixes to make it compatible with more recent versions of css-loader, especially with [`namedExports: true`](https://webpack.js.org/loaders/css-loader/#namedexport). It is also compatible with ESLint's flat config.
 
 ## Rules
 
@@ -30,38 +30,47 @@ Add all such classes in the array.
 ## Installation
 
 ```
-npm i --save-dev eslint-plugin-css-modules
+npm i --save-dev @bhollis/eslint-plugin-css-modules
 ```
 
 ## Usage:
 
-.eslintrc
-```json
-{
-  "plugins": [
-    "css-modules"
-  ],
-  "extends": [
-    "plugin:css-modules/recommended"
-  ]
-}
+```js
+// eslint.config.js
+import { defineConfig } from "eslint/config";
+import cssModules from "@bhollis/eslint-plugin-css-modules";
+
+export default defineConfig([
+  cssModules.configs.recommended
+	{
+		files: ["**/*.jsx"], // any patterns you want to apply the config to
+		plugins: {
+			'css-modules': cssModules,
+		},
+		extends: ["css-modules/recommended"],
+	},
+]);
 ```
 
 You may also tweak the rules individually. For instance, if you use the [camelCase](https://github.com/webpack-contrib/css-loader#camelcase) option of webpack's css-loader:
 
-```json
-{
-  "plugins": [
-    "css-modules"
-  ],
-  "extends": [
-    "plugin:css-modules/recommended"
-  ],
-  "rules": {
-    "css-modules/no-unused-class": [2, { "camelCase": true }],
-    "css-modules/no-undef-class": [2, { "camelCase": true }]
-  }
-}
+```js
+// eslint.config.js
+import { defineConfig } from "eslint/config";
+import cssModules from "@bhollis/eslint-plugin-css-modules";
+
+export default defineConfig([
+	{
+		files: ["**/*.jsx"], // any patterns you want to apply the config to
+		plugins: {
+			'css-modules': cssModules,
+		},
+		rules: {
+      "css-modules/no-unused-class": [2, { "camelCase": true }],
+      "css-modules/no-undef-class": [2, { "camelCase": true }]
+    },
+	},
+]);
 ```
 
 The camelCase option has 4 possible values, see [css-loader#camelCase](https://github.com/webpack-contrib/css-loader#camelcase) for description:
@@ -71,21 +80,31 @@ true | "dashes" | "only" | "dashes-only"
 
 ## Specifying base path
 
-You can specify path for the base directory via plugin settings in .eslintrc. This is used by the plugin to resolve absolute (S)CSS paths:
+You can specify path for the base directory via plugin settings in eslint.config.js. This is used by the plugin to resolve absolute (S)CSS paths:
 
-```json
-{
-  "settings": {
-    "css-modules": {
-      "basePath": "app/scripts/..."
-    }
-  }
-}
+```js
+// eslint.config.js
+import { defineConfig } from "eslint/config";
+import cssModules from "@bhollis/eslint-plugin-css-modules";
+
+export default defineConfig([
+	{
+		files: ["**/*.jsx"], // any patterns you want to apply the config to
+		plugins: {
+			'css-modules': cssModules,
+		},
+		settings: {
+      'css-modules': {
+        basePath: "app/scripts/..."
+      }
+    },
+	},
+]);
 ```
 
 ## Screen Shot
 
-![ScreenShot](https://raw.githubusercontent.com/atfzl/eslint-plugin-css-modules/master/screenshots/screenshot3.png)
+![ScreenShot](https://raw.githubusercontent.com/bhollis/eslint-plugin-css-modules/master/screenshots/screenshot3.png)
 
 ```
    1:8   error  Unused classes found: container  css-modules/no-unused-class
@@ -117,3 +136,7 @@ scss:
   color: cyan;
 }
 ```
+
+## With Thanks
+
+* This is forked from [`eslint-plugin-css-modules`](https://github.com/atfzl/eslint-plugin-css-modules).
