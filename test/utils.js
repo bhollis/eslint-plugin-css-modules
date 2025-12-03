@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { RuleTester as EslintRuleTester } from 'eslint';
 import { test } from 'mocha';
 

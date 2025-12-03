@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 import gonzales from 'gonzales-pe';
 
-import { eliminateGlobals } from '../../../lib/core/traversalUtils';
+import { eliminateGlobals } from '../../../lib/core/traversalUtils.js';
 
 describe('eliminateGlobals()', function () {
   describe('resolving :global pseudo class', function () {
