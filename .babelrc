@@ -1,9 +1,14 @@
 {
-  "presets": ["@babel/preset-env"],
+  "presets": [["@babel/preset-env", {
+    "modules": false
+  }]],
   "plugins": [
     "@babel/plugin-syntax-flow",
     "@babel/transform-flow-strip-types",
     "@babel/plugin-proposal-export-default-from"
   ],
+  "targets": {
+    "node": 20
+  },
   "sourceMaps": "inline"
 }
