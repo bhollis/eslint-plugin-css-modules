@@ -3,8 +3,7 @@
   "extends": [
     "standard",
     "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:mocha/recommended"
+    "plugin:import/warnings"
   ],
   "env": {
     "es6": true,

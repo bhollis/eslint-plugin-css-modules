@@ -11,7 +11,7 @@ export function addFilenameOption (testCase) {
 }
 
 /**
- * Customizing ESLint rule tester to be run by Mocha.
+ * Customizing ESLint rule tester to be run by node:test.
  * @see https://eslint.org/docs/latest/integrate/nodejs-api#customizing-ruletester
  */
 EslintRuleTester.describe = describe;

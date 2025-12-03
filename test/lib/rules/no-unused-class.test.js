@@ -1,4 +1,3 @@
-/* eslint-disable mocha/no-setup-in-describe */
 import rule from '../../../build/rules/no-unused-class.js';
 import { RuleTester, addFilenameOption } from '../../utils.js';
 

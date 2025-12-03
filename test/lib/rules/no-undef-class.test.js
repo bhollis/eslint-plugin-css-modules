@@ -1,7 +1,5 @@
-/* eslint-disable mocha/no-setup-in-describe */
 import rule from '../../../build/rules/no-undef-class.js';
 import { RuleTester, addFilenameOption } from '../../utils.js';
-import { describe } from 'node:test';
 
 const ruleTester = new RuleTester();
 
